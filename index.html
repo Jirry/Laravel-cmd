@@ -2,119 +2,66 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Laravel 命令辅助</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Laravel artisan 命令在线生成工具</title>
+
     <script src="http://cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
-    <script src="http://cdn.bootcss.com/zclip/1.1.2/jquery.zclip.min.js"></script>
+    <script src="http://cdn.bootcss.com/zeroclipboard/2.2.0/ZeroClipboard.min.js"></script>
     <script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        html, body {
-            font-family: 微软雅黑, HelveticaNeue-Light, 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        }
+    <script src="js/script.js"></script>
 
-        h4 {
-            margin-top: 24px;
-        }
-
-        pre {
-            background-color: #f7f7f9;
-            border: 1px solid #e1e1e8;
-            padding: 14px 12px;
-        }
-
-        .zero-clipboard {
-            position: relative;
-        }
-
-        .btn-clipboard {
-            position: absolute;
-            top: 0;
-            right: 0;
-            z-index: 10;
-            display: block;
-            padding: 3px 8px;
-            font-size: 12px;
-            color: #767676;
-            cursor: pointer;
-            background-color: #fff;
-            border: 1px solid #e1e1e8;
-            border-radius: 0 4px 0 4px;
-        }
-        .btn-clipboard.hover{
-            background-color: #337AB7;
-            color: #fff;
-        }
-    </style>
-    <script>
-        $(function () {
-            // 生成命令
-            function create() {
-                // 获取表名
-                var table_name = $('#name').val();
-                table_name = (table_name == '') ? 'example' : table_name;
-
-                // 复制按钮HTML
-                var copy_btn = '<div class="zero-clipboard"><span class="btn-clipboard">copy</span></div>';
-
-                // 模版
-                var obj = {
-                    'make-migration': 'php artisan make:migration create_{{ table }}_table --create={{ table }}'
-                }
-
-                // 循环生成命令
-                $.each(obj, function (key, val) {
-                    $('#' + key).html((copy_btn + '<pre>' + val + '</pre>').replace(/{{ table }}/g, table_name));
-                });
-
-                // 按钮提示
-                $('.btn-clipboard').attr("title", "复制到剪贴板");
-
-                // 按钮功能
-                $('.btn-clipboard').zclip({
-                    path: "http://cdn.bootcss.com/zclip/1.1.2/ZeroClipboard.swf",
-                    copy: function () {
-                        return $(this).parent().next().html();
-                    },
-                    afterCopy: function () {
-                        $(this).css('color', '#5cb85c').data("container","body")
-                                .attr("title", "复制成功").tooltip("show").attr("title", "复制到剪贴板");
-                    }
-                });
-            }
-
-            // 输入框内容改变
-            $('#name').bind('input propertychange', function () {
-                create();
-            });
-
-            create();
-        })
-        ;
-    </script>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12">
-            <h3>Laravel 命令辅助
-                <small>自动生成 artisan 命令</small>
-            </h3>
-            <hr>
-        </div>
-        <div class="col-xs-12">
-            <form class="form-inline">
-                <div class="form-group">
-                    <input type="text" class="form-control" style="width: 280px;" id="name" placeholder="请输入表名">
-                </div>
-            </form>
-        </div>
-        <div class="col-xs-12" id="all-code">
-
-            <h4>创建迁移文件</h4>
-            <div id="make-migration"></div>
-
+<div class="bar">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h3>Laravel artisan 命令
+                    <small>在线生成工具</small>
+                </h3>
+            </div>
         </div>
     </div>
 </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            <form class="box">
+                <input type="text" class="form-control" id="name" placeholder="表名、模型名、控制器名、验证名、中间件名">
+            </form>
+            <div id="cmd" class="box"></div>
+        </div>
+        <div class="col-sm-4">
+            <div class="box">
+                <h4>参考资料</h4>
+                <ul class="list-unstyled">
+                    <li><a target="_blank" href="http://laravelacademy.org/laravel-docs-5_1">Laravel 5.1 中文文档</a></li>
+                    <li><a target="_blank" href="http://laravelacademy.org/post/130.html">[ Laravel 5.1 ] 数据库 —
+                        迁移</a></li>
+                    <li><a target="_blank" href="http://laravelacademy.org/post/130.html#create-columns"
+                           class="text-stress">[ Laravel 5.1 ] 数据库 — 迁移 — 可用的列类型</a></li>
+                    <li><a target="_blank" href="http://laravelacademy.org/post/133.html">[ Laravel 5.1 ] 数据库 —
+                        填充数据</a></li>
+                    <li><a target="_blank" href="http://laravelacademy.org/post/138.html#ipt_kb_toc_138_1">[ Laravel 5.1
+                        ] Eloquent ORM — 定义模型</a></li>
+                    <li><a target="_blank" href="http://laravelacademy.org/post/60.html#ipt_kb_toc_60_5">[ Laravel 5.1
+                        ] HTTP 控制器 — RESTful控制器</a></li>
+                    <li><a target="_blank" href="http://laravelacademy.org/post/240.html#ipt_kb_toc_240_9">[ Laravel 5.1
+                        ] 验证 — 表单请求验证</a></li>
+                    <li><a target="_blank" href="http://laravelacademy.org/post/240.html#ipt_kb_toc_240_12"
+                           class="text-stress">[ Laravel 5.1
+                        ] 验证 — 有效验证规则</a></li>
+                    <li><a target="_blank" href="http://laravelacademy.org/post/57.html#ipt_kb_toc_57_1">[ Laravel 5.1
+                        ] HTTP 中间件 — 定义中间件</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
