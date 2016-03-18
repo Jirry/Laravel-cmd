@@ -15,7 +15,7 @@ $(function () {
             '运行迁移': 'php artisan migrate',
             '创建填充器': 'php artisan make:seeder #Name#TableSeeder',
             '运行填充器': 'php artisan db:seed --class=#Name#TableSeeder',
-            '创建模型': 'php artisan make:model Models\\\\#Name#',
+            '创建模型': 'php artisan make:model Models/#Name#',
             '创建空白控制器': 'php artisan make:controller #Name#Controller --plain',
             '创建资源控制器': 'php artisan make:controller #Name#Controller',
             '创建表单请求验证': 'php artisan make:request #Name#PostRequest',
