@@ -3,7 +3,7 @@ body {
     background: #f2f2f2 url("http://i12.tietuku.cn/ff7e79b9d690e651.png");
 }
 
-.bar {
+header {
     margin-bottom: 20px;
     background: #ffffff;
 
@@ -33,7 +33,7 @@ pre {
     padding: 14px 12px;
 }
 
-.text-stress{
+.text-stress {
     color: #f4645f;
 }
 
@@ -57,8 +57,14 @@ form.box {
     padding: 20px 15px;
 }
 
-ul li{
+ul li {
     line-height: 1.8;
+}
+
+footer {
+    height: 50px;
+    text-align: center;
+    margin-top: 20px;
 }
 
 /* ZeroClipboard */

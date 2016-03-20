@@ -58,4 +58,6 @@ $(function () {
     });
 
     create();
+
+    $('#year').text(new Date().getFullYear());
 });
