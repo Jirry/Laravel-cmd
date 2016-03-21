@@ -19,7 +19,7 @@ $(function () {
             '创建空白控制器': 'php artisan make:controller #Name#Controller --plain',
             '创建资源控制器': 'php artisan make:controller #Name#Controller',
             '创建表单请求验证': 'php artisan make:request #Name#PostRequest',
-            '创建中间件': 'php artisan make:middleware #Name#',
+            '创建中间件': 'php artisan make:middleware #Name#Middleware',
         }
 
         // html模版
