@@ -11,15 +11,22 @@ $(function () {
 
         // cmd模版
         var obj = {
-            '创建迁移文件': 'php artisan make:migration create_#name#_table --create=#name#',
-            '运行迁移': 'php artisan migrate',
-            '创建模型': 'php artisan make:model Models/#Name#',
-            '创建填充器': 'php artisan make:seeder #Name#TableSeeder',
-            '运行填充器': 'php artisan db:seed --class=#Name#TableSeeder',
-            '创建空白控制器': 'php artisan make:controller #Name#Controller --plain',
-            '创建资源控制器': 'php artisan make:controller #Name#Controller',
-            '创建表单请求验证': 'php artisan make:request #Name#PostRequest',
-            '创建中间件': 'php artisan make:middleware #Name#Middleware',
+            'database': {
+                '创建迁移文件': 'php artisan make:migration create_#name#_table --create=#name#',
+                '运行迁移': 'php artisan migrate',
+                '创建模型': 'php artisan make:model Models/#Name#',
+                '创建填充器': 'php artisan make:seeder #Name#TableSeeder',
+                '运行填充器': 'php artisan db:seed --class=#Name#TableSeeder',
+            },
+            'controller': {
+                '创建空白控制器': 'php artisan make:controller #Name#Controller --plain',
+                '创建资源控制器': 'php artisan make:controller #Name#Controller',
+                '创建表单请求验证': 'php artisan make:request #Name#PostRequest',
+            },
+            'other': {
+                '创建中间件': 'php artisan make:middleware #Name#Middleware',
+                '运行Elixir': 'gulp --production',
+            },
         }
 
         // html模版
@@ -34,12 +41,16 @@ $(function () {
         $('#cmd').empty();
 
         // 循环生成命令
-        $.each(obj, function (key, value) {
-            var upper = name.charAt(0).toUpperCase() + name.slice(1);                       //首字母大写
-            var cmd = value.replace(/#name#/g, name).replace(/#Name#/g, upper);     //替换cmd模版
-            var html = template.replace(/#title#/g, key).replace(/#cmd#/g, cmd);    //替换html模版
+        $.each(obj, function (group, item) {
+            $('#content').append('<div id="cmd-' + group + '" class="box"></div>')
 
-            $('#cmd').append(html);
+            $.each(item, function (key, value) {
+                var upper = name.charAt(0).toUpperCase() + name.slice(1);               //首字母大写
+                var cmd = value.replace(/#name#/g, name).replace(/#Name#/g, upper);     //替换cmd模版
+                var html = template.replace(/#title#/g, key).replace(/#cmd#/g, cmd);    //替换html模版
+
+                $('#cmd-' + group).append(html);
+            });
         });
 
         //复制功能
