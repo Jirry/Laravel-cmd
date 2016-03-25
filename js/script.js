@@ -38,7 +38,7 @@ $(function () {
             '<pre>#cmd#</pre>';
 
         // 清空现有内容
-        $('#cmd').empty();
+        $('#content').empty();
 
         // 循环生成命令
         $.each(obj, function (group, item) {
