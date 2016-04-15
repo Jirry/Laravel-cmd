@@ -6,7 +6,7 @@ $(function () {
     // 生成命令
     function create() {
         // 获取表名
-        var name = $('#name').val();
+        var name = $.trim($('#name').val());
         name = (name == '') ? 'example' : name;
 
         // cmd模版
